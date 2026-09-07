@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0B1440;
+  color: #F2F4FA;
+}
+
+/* ── Atmósfera ─────────────────────────────────────────────────────
+   Vive en un contenedor propio (.atmosphere, ver Home.jsx), no en
+   `body`, para que crezca con el alto real de la página en vez de
+   quedar fija al viewport. Todas las formas son enormes, parcialmente
+   fuera de pantalla y de opacidad muy baja — dan textura a las zonas
+   sin contenido sin competir nunca con el stage. */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.atmo-glow-a {
+  position: absolute;
+  top: -15%;
+  left: -12%;
+  width: 55vw;
+  height: 55vw;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(91, 111, 232, 0.20), transparent 65%);
+}
+
+.atmo-glow-b {
+  position: absolute;
+  bottom: -18%;
+  right: -14%;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(61, 107, 255, 0.14), transparent 65%);
+}
+
+.atmo-ring-a {
+  position: absolute;
+  top: -22%;
+  right: -18%;
+  width: 46vw;
+  height: 46vw;
+  border-radius: 9999px;
+  border: 1px solid rgba(242, 244, 250, 0.06);
+}
+
+.atmo-ring-b {
+  position: absolute;
+  top: -30%;
+  right: -24%;
+  width: 62vw;
+  height: 62vw;
+  border-radius: 9999px;
+  border: 1px solid rgba(242, 244, 250, 0.035);
+}
+
+.atmo-ring-c {
+  position: absolute;
+  bottom: -20%;
+  left: -16%;
+  width: 38vw;
+  height: 38vw;
+  border-radius: 9999px;
+  border: 1px solid rgba(91, 111, 232, 0.10);
+}
+
+.atmo-beam {
+  position: absolute;
+  top: -10%;
+  left: 38%;
+  width: 1px;
+  height: 130%;
+  background: linear-gradient(180deg, rgba(242, 244, 250, 0.06), transparent 70%);
+  transform: rotate(14deg);
+}
+
+.atmo-texture {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-conic-gradient(
+    from 0deg at 50% 0%,
+    rgba(242, 244, 250, 0.03) 0deg 1deg,
+    transparent 1deg 9deg
+  );
+}
+
+/* ── Estructura trasera del stage ── un plano más, apenas visible
+   detrás del marco, para reforzar que la superficie es un objeto con
+   espesor y no una tarjeta plana pegada sobre el fondo. */
+.stage-back {
+  position: absolute;
+  inset: -14px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(29, 49, 121, 0.35), rgba(11, 20, 64, 0));
+  filter: blur(2px);
+}
+
+/* Marco exterior de la superficie principal — el plano más lejano de
+   los tres que componen el "stage". Apenas más claro que el fondo. */
+.stage-bezel {
+  background: linear-gradient(180deg, #14205A 0%, #101C52 100%);
+}
+
+/* Panel principal — segundo plano. Contiene header, ranking, jugar, reglas. */
+.stage-main {
+  background: linear-gradient(180deg, #182A66 0%, #132563 55%, #10205A 100%);
+  box-shadow: inset 0 1px 0 rgba(242, 244, 250, 0.06);
+}
+
+/* Luz cenital sobre la superficie principal — con un leve tinte
+   eléctrico, no solo blanco, para que se sienta "luz de estadio". */
+.stage-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(242, 244, 250, 0.07), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 15% 0%, rgba(61, 107, 255, 0.10), transparent 70%);
+  pointer-events: none;
+}
+
+/* Plano recesivo: la superficie del ranking se ilumina apenas arriba
+   y se apaga hacia abajo, como si el primer plano estuviera más cerca
+   de la luz. */
+.recede-panel {
+  background: linear-gradient(180deg, #22357A 0%, #1D3179 40%, #172966 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 244, 250, 0.06),
+    0 20px 50px -20px rgba(3, 5, 12, 0.7);
+}
+
+/* Bandeo sutil por fila: las filas pares quedan un dedo más cerca de
+   la luz que las impares — no es un borde ni una tarjeta, es una
+   diferencia de tono casi imperceptible entre planos. */
+.row-band-even {
+  background: rgba(242, 244, 250, 0.012);
+}
+
+/* Rim-light muy sutil sobre los escudos — asegura legibilidad tanto de
+   escudos claros como oscuros contra el fondo azul, sin agregar ningún
+   contenedor ni fondo. Es un filtro, no un elemento. */
+.crest-glow {
+  filter:
+    drop-shadow(0 1px 2px rgba(2, 4, 14, 0.5))
+    drop-shadow(0 0 1px rgba(242, 244, 250, 0.3));
+}
